@@ -141,12 +141,15 @@ def push():
     
     
 player_chips = Chips()  # remember the default value is 100    
-    
+print("#"*78)
+print('#   Welcome to BlackJack! Get as close to 21 as you can without going over!  #')
+print('#       Dealer hits until she reaches 17. Aces count as 1 or 11.             #')  
+print("#"*78)
+   
 while True:
     # Print an opening statement
-    print('Welcome to BlackJack! Get as close to 21 as you can without going over!\n\
-    Dealer hits until she reaches 17. Aces count as 1 or 11.')
     
+    print(f"\nYou have {player_chips.balance} chips.")
     # Create & shuffle the deck, deal two cards to each player
     deck = Deck()
     deck.shuffle()
