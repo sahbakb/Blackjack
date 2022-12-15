@@ -19,15 +19,14 @@ class Card:
     
 class Deck:    
     def __init__(self):
-        self.deck = []  # start with an empty list
+        self.deck = [] 
         for suit in suits:
             for rank in ranks:
-                self.deck.append(Card(suit,rank))  # build Card objects and add them to the list
-    
+                self.deck.append(Card(suit,rank)) 
     def __str__(self):
-        deck_comp = ''  # start with an empty string
+        deck_comp = '' 
         for card in self.deck:
-            deck_comp += '\n '+card.__str__() # add each Card object's print string
+            deck_comp += '\n '+card.__str__() 
         return 'The deck has:' + deck_comp
 
     def shuffle(self):
@@ -41,15 +40,15 @@ class Deck:
     
 class Hand:    
     def __init__(self):
-        self.cards = []  # start with an empty list as we did in the Deck class
-        self.value = 0   # start with zero value
-        self.aces = 0    # add an attribute to keep track of aces
+        self.cards = []  
+        self.value = 0   
+        self.aces = 0    
     
     def add_card(self,card):
         self.cards.append(card)
         self.value += values[card.rank]
         if card.rank == 'Ace':
-            self.aces += 1  # add to self.aces
+            self.aces += 1  
     
     def adjust_for_ace(self):
         while self.value > 21 and self.aces:
@@ -89,13 +88,13 @@ def hit(deck,hand):
     
     
 def hit_or_stand(deck,hand):
-    global playing  # to control an upcoming while loop
+    global playing 
     
     while True:
         x = input("Would you like to Hit or Stand? Enter 'h' or 's' ")
         
         if x[0].lower() == 'h':
-            hit(deck,hand)  # hit() function defined above
+            hit(deck,hand)  
 
         elif x[0].lower() == 's':
             print("Player stands. Dealer is playing.")
@@ -140,17 +139,17 @@ def push():
     print("Dealer and Player tie! It's a push.")
     
     
-player_chips = Chips()  # remember the default value is 100    
+player_chips = Chips()    
 print("#"*78)
 print('#   Welcome to BlackJack! Get as close to 21 as you can without going over!  #')
 print('#       Dealer hits until she reaches 17. Aces count as 1 or 11.             #')  
 print("#"*78)
    
 while True:
-    # Print an opening statement
+    
     
     print(f"\nYou have {player_chips.balance} chips.")
-    # Create & shuffle the deck, deal two cards to each player
+    
     deck = Deck()
     deck.shuffle()
     
@@ -162,39 +161,36 @@ while True:
     dealer_hand.add_card(deck.deal())
     dealer_hand.add_card(deck.deal())
             
-    # Set up the Player's chips
-        
     
-    # Prompt the Player for their bet
     player_chips.take_bet()
     
-    # Show cards (but keep one dealer card hidden)
+    
     show_some(player_hand,dealer_hand)
     
-    while playing:  # recall this variable from our hit_or_stand function
+    while playing:  
         
-        # Prompt for Player to Hit or Stand
+        
         hit_or_stand(deck,player_hand) 
         
-        # Show cards (but keep one dealer card hidden)
+        
         show_some(player_hand,dealer_hand)  
         
-        # If player's hand exceeds 21, run player_busts() and break out of loop
+        
         if player_hand.value > 21:
             player_busts(player_chips)
             break        
 
 
-    # If Player hasn't busted, play Dealer's hand until Dealer reaches 17 
+    
     if player_hand.value <= 21:
         
         while dealer_hand.value < 17:
             hit(deck,dealer_hand)    
     
-        # Show all cards
+        
         show_all(player_hand,dealer_hand)
         
-        # Run different winning scenarios
+        
         if dealer_hand.value > 21:
             dealer_busts(player_chips)
 
@@ -207,10 +203,10 @@ while True:
         else:
             push()        
     
-    # Inform Player of their chips total 
+    
     print("\nPlayer's winnings stand at",player_chips.balance)
     
-    # Ask to play again
+    
     new_game = input("Would you like to play another hand? Enter 'y' or 'n' ")
     
     if new_game[0].lower()=='y':
